@@ -92,9 +92,16 @@ def hash_article(link: str) -> str:
 def save_articles_to_json(articles: list):
     today = datetime.now().strftime("%Y%m%d")
     file_name = f"articles_{today}.json"
-    with open(file_name, "w", encoding="utf-8") as f:
+    
+    dir_path = os.path.join(os.path.dirname(__file__), "data", "fatchedNews")
+    os.makedirs(dir_path, exist_ok=True)  # 디렉토리 없으면 생성
+
+    file_path = os.path.join(dir_path, file_name)
+    
+    with open(file_path, "w", encoding="utf-8") as f:
         json.dump(articles, f, indent=2, ensure_ascii=False)
-    print(f"[OK] Saved {len(articles)} articles to {file_name}")
+    
+    print(f"[OK] Saved {len(articles)} articles to {file_path}")
 
 
 # 새로운 해시 저장

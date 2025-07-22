@@ -15,5 +15,4 @@ venv/
 .vscode/
 
 # Test files
-test_files/
-modules/
+ignore/
