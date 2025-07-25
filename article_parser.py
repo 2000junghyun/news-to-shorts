@@ -1,9 +1,10 @@
 import os
 import re
+import sys
 import json
 import requests
 from bs4 import BeautifulSoup
-# from utils.cleaner import clean_article_text
+from utils.cleaner import classify_json_files
 
 DATE="20250720"
 ARTICLES_META_FILE = os.path.join("data", "fatchedNews", f"articles_{DATE}.json")
@@ -75,4 +76,14 @@ def extract_main_text(html: str) -> str:
 
 
 if __name__ == "__main__":
-    parse_articles(ARTICLES_META_FILE, OUTPUT_DIR)
+    # parse_articles(ARTICLES_META_FILE, OUTPUT_DIR)
+
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    input_dir = os.path.join(base_dir, "data", "parsed", f"articles_full_{DATE}")
+    output_dir_with = os.path.join(base_dir, "data", "parsed", f"with_article_section_{DATE}")
+    output_dir_without = os.path.join(base_dir, "data", "parsed", f"without_article_section_{DATE}")
+
+    classify_json_files(input_dir, output_dir_with, output_dir_without)
+    print(f"분류 완료! 결과:")
+    print(f" - 구조 있음: {output_dir_with}")
+    print(f" - 구조 없음: {output_dir_without}")
