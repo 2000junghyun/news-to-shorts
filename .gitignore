@@ -16,3 +16,4 @@ venv/
 
 # Test files
 ignore/
+.DS_Store
